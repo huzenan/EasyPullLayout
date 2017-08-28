@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.hzn.lib.EasyPullLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/epl"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
+    app:fixed_content_bottom="true"
+    app:fixed_content_top="true"
+    app:max_offset_bottom="150dp"
+    app:max_offset_top="150dp"
+    app:trigger_offset_bottom="75dp"
+    app:trigger_offset_top="75dp"
+    tools:context="com.hzn.easypulllayout.fixed.FixedActivity">
+
+    <ImageView
+        android:id="@+id/topView"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:scaleType="center"
+        android:src="@mipmap/icon_rocket"
+        app:layout_type="edge_top" />
+
+    <ListView
+        android:id="@+id/lv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@null"
+        app:layout_type="content"
+        tools:listitem="@layout/item_string" />
+
+</com.hzn.lib.EasyPullLayout>

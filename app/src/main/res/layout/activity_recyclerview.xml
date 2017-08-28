@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.hzn.lib.EasyPullLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/epl"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
+    app:max_offset_bottom="150dp"
+    app:max_offset_top="150dp"
+    app:trigger_offset_bottom="75dp"
+    app:trigger_offset_top="75dp"
+    tools:context="com.hzn.easypulllayout.recyclerview.RecyclerViewActivity">
+
+    <com.hzn.easypulllayout.recyclerview.TransformerView
+        android:id="@+id/topView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_type="edge_top" />
+
+    <com.hzn.easypulllayout.recyclerview.TransformerView
+        android:id="@+id/bottomView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_type="edge_bottom" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:animationCache="@null"
+        app:layout_type="content"
+        tools:listitem="@layout/item_string" />
+
+</com.hzn.lib.EasyPullLayout>

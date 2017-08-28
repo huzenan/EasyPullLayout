@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="EasyPullLayout">
+        <attr name="trigger_offset_left" format="dimension" />
+        <attr name="trigger_offset_top" format="dimension" />
+        <attr name="trigger_offset_right" format="dimension" />
+        <attr name="trigger_offset_bottom" format="dimension" />
+        <attr name="max_offset_left" format="dimension" />
+        <attr name="max_offset_top" format="dimension" />
+        <attr name="max_offset_right" format="dimension" />
+        <attr name="max_offset_bottom" format="dimension" />
+        <attr name="fixed_content_left" format="boolean" />
+        <attr name="fixed_content_top" format="boolean" />
+        <attr name="fixed_content_right" format="boolean" />
+        <attr name="fixed_content_bottom" format="boolean" />
+        <attr name="roll_back_duration" format="integer" />
+        <attr name="sticky_factor" format="float" />
+    </declare-styleable>
+
+    <declare-styleable name="EasyPullLayout_LayoutParams">
+        <attr name="layout_type" format="enum">
+            <enum name="edge_left" value="0" />
+            <enum name="edge_top" value="1" />
+            <enum name="edge_right" value="2" />
+            <enum name="edge_bottom" value="3" />
+            <enum name="content" value="4" />
+        </attr>
+        <attr name="layout_content_fixed" format="boolean" />
+    </declare-styleable>
+</resources>

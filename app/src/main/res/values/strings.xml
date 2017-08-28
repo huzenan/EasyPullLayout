@@ -1,0 +1,116 @@
+<resources>
+    <string name="app_name">EasyPullLayout</string>
+
+    <!-- activities -->
+    <string name="activity_list_view">ListView</string>
+    <string name="activity_recycler_view">RecyclerView</string>
+    <string name="activity_view_pager">ViewPager</string>
+    <string name="activity_fixed">Fixed</string>
+    <string name="activity_nested">Nested</string>
+    <string name="activity_detail">Detail</string>
+
+    <!-- common -->
+    <string name="idle">pull and pull&#8230;</string>
+    <string name="ready">release me!</string>
+    <string name="triggered">loading&#8230;</string>
+    <string name="refreshing_date">refreshing time</string>
+    <string name="finish">finish</string>
+    <string name="detail">DETAIL</string>
+    <string name="pull">pull</string>
+    <string name="release">release</string>
+    <string name="wait">wait&#8230;</string>
+
+    <!-- path strings -->
+    <string name="path_transformer_autobots">
+        <!-- left top -->
+        m90,108  l171,126  171,171  266,243  266,315
+        m90,108  l135,270  198,306  266,315
+        <!-- left top inside -->
+        m153,207  l243,252
+        m162,252  l243,297
+
+        <!-- left bottom -->
+        m135,288  l189,315  189,342  216,369  216,477
+        m135,288  l135,423  216,477
+
+        <!-- middle left top -->
+        m189,135  q189,108,300,108
+        m189,135  l189,162  300,243
+        <!-- middle left top inside -->
+        m246,162  l300,162
+        m246,162  l300,198
+
+        <!-- middle left -->
+        m300,261  l279,243  279,288  288,297  288,419  300,419
+
+        <!-- middle left bottom -->
+        m300,432  l270,432  270,333  234,360  234,486  243,504  261,459  300,459
+
+        <!-- bottom left -->
+        m300,472  l270,472  252,513  300,513
+
+
+        <!-- right top -->
+        m510,108  l429,126  429,171  334,243  334,315
+        m510,108  l465,270  402,306  334,315
+        <!-- right top inside -->
+        m447,207  l357,252
+        m438,252  l357,297
+
+        <!-- right bottom -->
+        m465,288  l411,315  411,342  384,369  384,477
+        m465,288  l465,423  384,477
+
+        <!-- middle right top -->
+        m411,135  q411,108,300,108
+        m411,135  l411,162  300,243
+        <!-- middle right top inside -->
+        m354,162  l300,162
+        m354,162  l300,198
+
+        <!-- middle right -->
+        m300,261  l321,243  321,288  312,297  312,419  300,419
+
+        <!-- middle right bottom -->
+        m300,432  l330,432  330,333  366,360  366,486  357,504  339,459  300,459
+
+        <!-- bottom right -->
+        m300,472  l330,472  348,513  300,513
+    </string>
+
+    <string name="path_transformer_decepticons">
+        <!-- left -->
+        m171,171  l117,108  144,270  300,522
+        m171,171  l234,198  243,216  171,189  180,216  243,234  252,261  180,234  189,261  252,279  300,351
+
+        <!-- left eye -->
+        m198,297  l252,315  279,360  216,342  z
+
+        <!-- left bottom -->
+        m144,306  l180,459  261,495  z
+
+        <!-- left top -->
+        m234,117  l279,171  300,171
+        m234,117  l261,261  300,324
+        <!-- left top inside -->
+        m300,198  l279,198  300,261
+
+
+        <!-- right -->
+        m429,171  l483,108  456,270  300,522
+        m429,171  l366,198  357,216  429,189  420,216  357,234  348,261  420,234  411,261  348,279  300,351
+
+        <!-- right eye -->
+        m402,297  l348,315  321,360  384,342  z
+
+        <!-- right bottom -->
+        m456,306  l420,459  339,495  z
+
+        <!-- right top -->
+        m366,117  l321,171  300,171
+        m366,117  l339,261  300,324
+        <!-- right top inside -->
+        m300,198  l321,198  300,261
+    </string>
+
+</resources>

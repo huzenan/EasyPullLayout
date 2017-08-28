@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:gravity="center"
+    android:layout_height="75dp"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
+        <com.hzn.lib.EasyPathView
+            android:id="@+id/epvAutobots"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            app:epvAnimDurations="400"
+            app:epvAnimMode="together"
+            app:epvFixedHeight="600"
+            app:epvFixedWidth="600"
+            app:epvMaxPathCount="26"
+            app:epvPathString="@string/path_transformer_autobots"
+            app:epvState="hide"
+            app:epvStrokeColor="@color/colorAccent"
+            app:epvStrokeFixedWidth="10"
+            app:epvStrokeIsRound="true" />
+
+        <com.hzn.lib.EasyPathView
+            android:id="@+id/epvDecepticons"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            app:epvAnimDurations="400"
+            app:epvAnimMode="together"
+            app:epvFixedHeight="600"
+            app:epvFixedWidth="600"
+            app:epvMaxPathCount="14"
+            app:epvPathString="@string/path_transformer_decepticons"
+            app:epvState="hide"
+            app:epvStrokeColor="@color/colorAccent"
+            app:epvStrokeFixedWidth="10"
+            app:epvStrokeIsRound="true"
+            android:visibility="gone"
+            />
+
+        <LinearLayout
+            android:id="@+id/layout_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorAccent"
+                android:textSize="18sp"
+                tools:text="loading..." />
+
+            <TextView
+                android:id="@+id/tvDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/colorLightAccent"
+                android:textSize="14sp"
+                tools:text="2017.8.6 19:20" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.hzn.lib.EasyPullLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/epl"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
+    app:fixed_content_top="true"
+    app:max_offset_top="150dp"
+    app:trigger_offset_top="75dp"
+    tools:context="com.hzn.easypulllayout.nested.NestedActivity">
+
+    <ImageView
+        android:id="@+id/topView"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:scaleType="center"
+        android:src="@mipmap/icon_rocket_white"
+        app:layout_type="edge_top" />
+
+    <com.hzn.easypulllayout.listview.TopAndBottomView
+        android:id="@+id/bottomView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_type="edge_bottom" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_type="content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_marginTop="16dp"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/io17_3" />
+
+            <com.hzn.lib.EasyPullLayout
+                android:id="@+id/epl1"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_marginTop="16dp"
+                app:max_offset_right="120dp"
+                app:trigger_offset_right="60dp">
+
+                <com.hzn.easypulllayout.listview.LeftAndRightView
+                    android:id="@+id/rightView"
+                    android:layout_width="60dp"
+                    android:layout_height="match_parent"
+                    app:layout_type="edge_right" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rvH1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorPrimary"
+                    app:layout_type="content"
+                    tools:listitem="@layout/item_image" />
+            </com.hzn.lib.EasyPullLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_marginTop="16dp"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/io17_1" />
+
+            <com.hzn.lib.EasyPullLayout
+                android:id="@+id/epl2"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_marginTop="16dp"
+                app:max_offset_left="120dp"
+                app:sticky_factor="0.85"
+                app:trigger_offset_left="60dp">
+
+                <com.hzn.easypulllayout.listview.LeftAndRightView
+                    android:id="@+id/leftView"
+                    android:layout_width="60dp"
+                    android:layout_height="match_parent"
+                    app:layout_type="edge_left" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rvH2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorPrimary"
+                    app:layout_type="content"
+                    tools:listitem="@layout/item_image" />
+            </com.hzn.lib.EasyPullLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_marginBottom="16dp"
+                android:layout_marginTop="16dp"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/io17_2" />
+        </LinearLayout>
+    </ScrollView>
+
+</com.hzn.lib.EasyPullLayout>
