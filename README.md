@@ -2,6 +2,9 @@
 
 A light Pull Layout for Android that support both VERTICAL and HORIZONTAL. You can wrap any layout you want to support the pulling action.
 
+## Java Demo
+See [EasyPullLayoutJavaDemo](https://github.com/huzenan/EasyPullLayoutJavaDemo).
+
 ## ScreenShots
 ### RecyclerView
 ![recyclerview](https://github.com/huzenan/EasyPullLayout/blob/master/screenshots/recyclerview.gif)
