@@ -31,6 +31,7 @@ class EasyPullLayout : ViewGroup {
     private var fixed_content_right = false
     private var fixed_content_bottom = false
     private var roll_back_duration = 0L // default 300
+    private var auto_refresh_rolling_duration = 0L // default 300
     private var sticky_factor = 0f // default 0.66f (0f~1f)
 
     private var childViews = HashMap<View, ChildViewAttr>(4)
@@ -92,6 +93,7 @@ class EasyPullLayout : ViewGroup {
             fixed_content_right = it.getBoolean(R.styleable.EasyPullLayout_fixed_content_right, false)
             fixed_content_bottom = it.getBoolean(R.styleable.EasyPullLayout_fixed_content_bottom, false)
             roll_back_duration = it.getInteger(R.styleable.EasyPullLayout_roll_back_duration, 300).toLong()
+            auto_refresh_rolling_duration = it.getInteger(R.styleable.EasyPullLayout_auto_refresh_rolling_duration, 300).toLong()
             sticky_factor = it.getFloat(R.styleable.EasyPullLayout_sticky_factor, 0.66f)
             sticky_factor = if (sticky_factor < 0f) 0f else if (sticky_factor > 1f) 1f else sticky_factor // limit 0f~1f
             it.recycle()
@@ -234,49 +236,7 @@ class EasyPullLayout : ViewGroup {
                 val y = event.y
                 offsetX = (x - downX) * (1 - sticky_factor * 0.75f)
                 offsetY = (y - downY) * (1 - sticky_factor * 0.75f)
-                var pullFraction = 0f
-
-                // limit the offset
-                when (currentType) {
-                    TYPE_EDGE_LEFT -> {
-                        offsetX = if (offsetX < 0) 0f else if (offsetX > max_offset_left) max_offset_left.toFloat() else offsetX
-                        pullFraction = if (offsetX == 0f) 0f else if (trigger_offset_left > offsetX) offsetX / trigger_offset_left else 1f
-                    }
-                    TYPE_EDGE_RIGHT -> {
-                        offsetX = if (offsetX > 0) 0f else if (offsetX < -max_offset_right) -max_offset_right.toFloat() else offsetX
-                        pullFraction = if (offsetX == 0f) 0f else if (-trigger_offset_right < offsetX) offsetX / -trigger_offset_right else 1f
-                    }
-                    TYPE_EDGE_TOP -> {
-                        offsetY = if (offsetY < 0) 0f else if (offsetY > max_offset_top) max_offset_top.toFloat() else offsetY
-                        pullFraction = if (offsetY == 0f) 0f else if (trigger_offset_top > offsetY) offsetY / trigger_offset_top else 1f
-                    }
-                    TYPE_EDGE_BOTTOM -> {
-                        offsetY = if (offsetY > 0) 0f else if (offsetY < -max_offset_bottom) -max_offset_bottom.toFloat() else offsetY
-                        pullFraction = if (offsetY == 0f) 0f else if (-trigger_offset_bottom < offsetY) offsetY / -trigger_offset_bottom else 1f
-                    }
-                }
-                val changed = !(lastPullFraction < 1f && pullFraction < 1f || lastPullFraction == 1f && pullFraction == 1f)
-                onPullListener?.invoke(currentType, pullFraction, changed)
-                lastPullFraction = pullFraction
-
-                when (currentType) {
-                    TYPE_EDGE_LEFT ->
-                        for ((childView, childViewAttr) in childViews)
-                            if ((childView.layoutParams as LayoutParams).type != TYPE_CONTENT || !fixed_content_left)
-                                childView.x = childViewAttr.left + offsetX
-                    TYPE_EDGE_RIGHT ->
-                        for ((childView, childViewAttr) in childViews)
-                            if ((childView.layoutParams as LayoutParams).type != TYPE_CONTENT || !fixed_content_right)
-                                childView.x = childViewAttr.left + offsetX
-                    TYPE_EDGE_TOP ->
-                        for ((childView, childViewAttr) in childViews)
-                            if ((childView.layoutParams as LayoutParams).type != TYPE_CONTENT || !fixed_content_top)
-                                childView.y = childViewAttr.top + offsetY
-                    TYPE_EDGE_BOTTOM ->
-                        for ((childView, childViewAttr) in childViews)
-                            if ((childView.layoutParams as LayoutParams).type != TYPE_CONTENT || !fixed_content_bottom)
-                                childView.y = childViewAttr.top + offsetY
-                }
+                move()
             }
             MotionEvent.ACTION_CANCEL, MotionEvent.ACTION_UP -> {
                 currentState = STATE_ROLLING
@@ -287,6 +247,52 @@ class EasyPullLayout : ViewGroup {
             }
         }
         return true
+    }
+
+    private fun move() {
+        var pullFraction = 0f
+
+        // limit the offset
+        when (currentType) {
+            TYPE_EDGE_LEFT -> {
+                offsetX = if (offsetX < 0) 0f else if (offsetX > max_offset_left) max_offset_left.toFloat() else offsetX
+                pullFraction = if (offsetX == 0f) 0f else if (trigger_offset_left > offsetX) offsetX / trigger_offset_left else 1f
+            }
+            TYPE_EDGE_RIGHT -> {
+                offsetX = if (offsetX > 0) 0f else if (offsetX < -max_offset_right) -max_offset_right.toFloat() else offsetX
+                pullFraction = if (offsetX == 0f) 0f else if (-trigger_offset_right < offsetX) offsetX / -trigger_offset_right else 1f
+            }
+            TYPE_EDGE_TOP -> {
+                offsetY = if (offsetY < 0) 0f else if (offsetY > max_offset_top) max_offset_top.toFloat() else offsetY
+                pullFraction = if (offsetY == 0f) 0f else if (trigger_offset_top > offsetY) offsetY / trigger_offset_top else 1f
+            }
+            TYPE_EDGE_BOTTOM -> {
+                offsetY = if (offsetY > 0) 0f else if (offsetY < -max_offset_bottom) -max_offset_bottom.toFloat() else offsetY
+                pullFraction = if (offsetY == 0f) 0f else if (-trigger_offset_bottom < offsetY) offsetY / -trigger_offset_bottom else 1f
+            }
+        }
+        val changed = !(lastPullFraction < 1f && pullFraction < 1f || lastPullFraction == 1f && pullFraction == 1f)
+        onPullListener?.invoke(currentType, pullFraction, changed)
+        lastPullFraction = pullFraction
+
+        when (currentType) {
+            TYPE_EDGE_LEFT ->
+                for ((childView, childViewAttr) in childViews)
+                    if ((childView.layoutParams as LayoutParams).type != TYPE_CONTENT || !fixed_content_left)
+                        childView.x = childViewAttr.left + offsetX
+            TYPE_EDGE_RIGHT ->
+                for ((childView, childViewAttr) in childViews)
+                    if ((childView.layoutParams as LayoutParams).type != TYPE_CONTENT || !fixed_content_right)
+                        childView.x = childViewAttr.left + offsetX
+            TYPE_EDGE_TOP ->
+                for ((childView, childViewAttr) in childViews)
+                    if ((childView.layoutParams as LayoutParams).type != TYPE_CONTENT || !fixed_content_top)
+                        childView.y = childViewAttr.top + offsetY
+            TYPE_EDGE_BOTTOM ->
+                for ((childView, childViewAttr) in childViews)
+                    if ((childView.layoutParams as LayoutParams).type != TYPE_CONTENT || !fixed_content_bottom)
+                        childView.y = childViewAttr.top + offsetY
+        }
     }
 
     private fun rollBackHorizontal() {
@@ -401,6 +407,52 @@ class EasyPullLayout : ViewGroup {
         when (currentType) {
             TYPE_EDGE_LEFT, TYPE_EDGE_RIGHT -> rollBackHorizontal()
             TYPE_EDGE_TOP, TYPE_EDGE_BOTTOM -> rollBackVertical()
+        }
+    }
+
+    /**
+     * Start refresh automatically.
+     */
+    fun autoRefresh(typeEdge: Int) {
+        if (currentState != STATE_IDLE)
+            return
+
+        if (typeEdge != TYPE_EDGE_LEFT &&
+                typeEdge != TYPE_EDGE_TOP &&
+                typeEdge != TYPE_EDGE_RIGHT &&
+                typeEdge != TYPE_EDGE_BOTTOM)
+            return
+
+        currentState = STATE_ROLLING
+        currentType = typeEdge
+
+        val end = when (currentType) {
+            TYPE_EDGE_LEFT -> max_offset_left
+            TYPE_EDGE_TOP -> max_offset_top
+            TYPE_EDGE_RIGHT -> -max_offset_right
+            TYPE_EDGE_BOTTOM -> -max_offset_bottom
+            else -> 0
+        }.toFloat()
+
+        verticalAnimator = ValueAnimator.ofFloat(0f, end).apply {
+            duration = auto_refresh_rolling_duration
+            interpolator = DecelerateInterpolator()
+            addUpdateListener {
+                when (currentType) {
+                    TYPE_EDGE_LEFT, TYPE_EDGE_RIGHT -> offsetX = animatedValue as Float
+                    TYPE_EDGE_TOP, TYPE_EDGE_BOTTOM -> offsetY = animatedValue as Float
+                }
+                move()
+            }
+            addListener(object : AnimatorListenerAdapter() {
+                override fun onAnimationEnd(animation: Animator?) {
+                    when (currentType) {
+                        TYPE_EDGE_LEFT, TYPE_EDGE_RIGHT -> rollBackHorizontal()
+                        TYPE_EDGE_TOP, TYPE_EDGE_BOTTOM -> rollBackVertical()
+                    }
+                }
+            })
+            start()
         }
     }
 

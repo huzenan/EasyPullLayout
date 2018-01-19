@@ -14,6 +14,7 @@
         <attr name="fixed_content_right" format="boolean" />
         <attr name="fixed_content_bottom" format="boolean" />
         <attr name="roll_back_duration" format="integer" />
+        <attr name="auto_refresh_rolling_duration" format="integer" />
         <attr name="sticky_factor" format="float" />
     </declare-styleable>
 

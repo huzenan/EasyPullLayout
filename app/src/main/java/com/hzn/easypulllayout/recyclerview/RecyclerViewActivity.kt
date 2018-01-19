@@ -29,6 +29,7 @@ class RecyclerViewActivity : AppCompatActivity() {
         setContentView(R.layout.activity_recyclerview)
         initRecyclerView()
         initEasyPullLayout()
+        epl.autoRefresh(EasyPullLayout.TYPE_EDGE_TOP)
     }
 
     private fun initRecyclerView() {
